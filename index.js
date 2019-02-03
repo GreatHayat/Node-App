@@ -46,6 +46,15 @@ app.put("/api/courses/:id", (req, res) => {
   res.send(course);
 });
 
+app.delete("/api/courses/:id", (req, res) => {
+  const course = courses.find(c => c.id == req.params.id);
+  if (!course)
+    return res.status(404).send("The Course with Given ID was not Fond!");
+
+  const index = courses.indexOf(course);
+  courses.splice(index, 1);
+  res.send(course);
+});
 function courseValidate(course) {
   const schema = {
     name: Joi.string()
